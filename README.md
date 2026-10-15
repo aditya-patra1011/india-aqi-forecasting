@@ -28,12 +28,12 @@ data/ notebooks/ src/ models/ reports/ app/ tests/
 ## Status
 
 - [x]: Phase 0: repo setup
-- [x]: Phase 1: repo setup
-- [x]: Phase 2: repo setup
-- [x]: Phase 3: repo setup
-- [x]: Phase 4: repo setup
-- [x]: Phase 5: repo setup
-- [x]: Phase 6: repo setup
-- [x]: Phase 7: repo setup
-- [x]: Phase 8: repo setup
-- [x]: Phase 9: repo setup
+- [ ]: Phase 1: data cleaning
+- [ ]: Phase 2: EDA
+- [ ]: Phase 3: baselines
+- [ ]: Phase 4: classical models
+- [ ]: Phase 5: ML models
+- [ ]: Phase 6: LSTM
+- [ ]: Phase 7: comparison
+- [ ]: Phase 8: app
+- [ ]: Phase 9: docs

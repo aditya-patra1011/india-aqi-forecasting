@@ -9,3 +9,4 @@ xgboost
 shap
 streamlit
 jupyter
+pytest
