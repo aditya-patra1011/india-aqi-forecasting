@@ -28,7 +28,7 @@ data/ notebooks/ src/ models/ reports/ app/ tests/
 ## Status
 
 - [x]: Phase 0: repo setup
-- [ ]: Phase 1: data cleaning
+- [x]: Phase 1: data cleaning
 - [ ]: Phase 2: EDA
 - [ ]: Phase 3: baselines
 - [ ]: Phase 4: classical models
