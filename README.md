@@ -31,7 +31,7 @@ data/ notebooks/ src/ models/ reports/ app/ tests/
 - [x]: Phase 1: data cleaning
 - [x]: Phase 2: EDA
 - [x]: Phase 3: baselines
-- [ ]: Phase 4: classical models
+- [x]: Phase 4: classical models
 - [ ]: Phase 5: ML models
 - [ ]: Phase 6: LSTM
 - [ ]: Phase 7: comparison
