@@ -29,8 +29,8 @@ data/ notebooks/ src/ models/ reports/ app/ tests/
 
 - [x]: Phase 0: repo setup
 - [x]: Phase 1: data cleaning
-- [ ]: Phase 2: EDA
-- [ ]: Phase 3: baselines
+- [x]: Phase 2: EDA
+- [x]: Phase 3: baselines
 - [ ]: Phase 4: classical models
 - [ ]: Phase 5: ML models
 - [ ]: Phase 6: LSTM
