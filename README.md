@@ -35,6 +35,7 @@ python -m src.eda             # train-only EDA tables and figures
 python -m src.run_baselines   # baselines
 python -m src.run_classical   # SARIMAX and Prophet
 python -m src.run_ml          # Ridge, Random Forest, XGBoost
+python -m src.run_deep        # LSTM and GRU (PyTorch)
 python -m pytest
 ```
 
@@ -46,7 +47,7 @@ python -m pytest
 - [x] Phase 3: baselines
 - [x] Phase 4: classical models
 - [x] Phase 5: ML models
-- [ ] Phase 6: LSTM
+- [x] Phase 6: LSTM
 - [ ] Phase 7: comparison
 - [ ] Phase 8: app
 - [ ] Phase 9: docs
