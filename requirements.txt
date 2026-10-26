@@ -6,6 +6,7 @@ scikit-learn
 statsmodels
 prophet
 xgboost
+torch
 shap
 streamlit
 jupyter
