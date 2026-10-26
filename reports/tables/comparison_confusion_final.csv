@@ -1,0 +1,7 @@
+true,Good,Satisfactory,Moderate,Poor,Very Poor,Severe
+Good,14,15,0,0,0,0
+Satisfactory,2,459,55,0,0,0
+Moderate,0,39,205,15,0,0
+Poor,0,0,13,43,14,0
+Very Poor,0,0,0,4,31,2
+Severe,0,0,0,0,0,4

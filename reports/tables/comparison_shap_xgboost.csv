@@ -1,0 +1,27 @@
+feature,mean_abs_shap,group,share
+PM2.5_lag1,38.76475,pollutant lags,0.43013266
+aqi_lag1,16.062431,AQI history,0.17822832
+aqi_mean7,9.715425,AQI history,0.10780209
+aqi_mean30,5.10766,AQI history,0.056674458
+PM10_lag1,4.131458,pollutant lags,0.045842547
+CO_lag1,2.6080608,pollutant lags,0.028938975
+NO_lag1,1.4932507,pollutant lags,0.01656907
+O3_lag1,1.1814107,pollutant lags,0.013108902
+NOx_lag1,1.0999547,pollutant lags,0.012205069
+city_Delhi,1.0343163,city,0.011476747
+aqi_lag7,0.94734216,AQI history,0.010511683
+doy_sin,0.8518738,calendar,0.009452369
+SO2_lag1,0.8506052,pollutant lags,0.009438293
+NO2_lag1,0.8373891,pollutant lags,0.009291648
+Toluene_lag1,0.78483564,pollutant lags,0.008708515
+aqi_lag3,0.71541274,AQI history,0.007938201
+aqi_lag2,0.6835732,AQI history,0.00758491
+doy_cos,0.6833252,calendar,0.0075821583
+Benzene_lag1,0.67029184,pollutant lags,0.0074375407
+NH3_lag1,0.54916286,pollutant lags,0.006093497
+Xylene_lag1,0.43189606,pollutant lags,0.0047923075
+city_Bengaluru,0.418725,city,0.0046461616
+month,0.1987528,calendar,0.002205356
+city_Lucknow,0.17983367,city,0.0019954296
+city_Hyderabad,0.08062711,city,0.0008946363
+city_Chennai,0.04042298,city,0.00044853232

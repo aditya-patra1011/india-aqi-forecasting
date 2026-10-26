@@ -36,6 +36,7 @@ python -m src.run_baselines   # baselines
 python -m src.run_classical   # SARIMAX and Prophet
 python -m src.run_ml          # Ridge, Random Forest, XGBoost
 python -m src.run_deep        # LSTM and GRU (PyTorch)
+python -m src.run_comparison  # all models on the same rows, significance, SHAP
 python -m pytest
 ```
 
@@ -48,6 +49,6 @@ python -m pytest
 - [x] Phase 4: classical models
 - [x] Phase 5: ML models
 - [x] Phase 6: LSTM
-- [ ] Phase 7: comparison
+- [x] Phase 7: comparison
 - [ ] Phase 8: app
 - [ ] Phase 9: docs
