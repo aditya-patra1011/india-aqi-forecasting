@@ -5,7 +5,6 @@ Configurations and epoch counts are chosen on validation only.
 import time
 
 import pandas as pd
-import torch
 
 from src import config
 from src.baselines import persistence
@@ -29,7 +28,6 @@ def load_clean() -> pd.DataFrame:
 
 
 def main() -> None:
-    torch.set_num_threads(4)
     df = load_clean()
     core = core_pollutants(missing_pct(get_split(df, "train")))      # train-only rule
     print("Core pollutants:", core)
