@@ -119,8 +119,17 @@ def test_app_runs_end_to_end():
 
     at = AppTest.from_file(str(config.ROOT / "app" / "streamlit_app.py"), default_timeout=120).run()
     assert not at.exception
-    assert len(at.tabs) == 4
+    labels = {t.label for t in at.tabs}                         # page order: phase tabs sit inside Model analysis
+    assert {"Next-day forecast", "History", "Data & EDA", "Model analysis", "Leaderboard", "About"} <= labels
+    assert {"Baselines", "Classical", "Machine learning", "Deep learning", "Comparison"} <= labels
+    assert len(at.tabs) == 6 + 5
     at.sidebar.selectbox[0].select("Lucknow").run()
     assert not at.exception
     at.slider[0].set_value(300.0).run()                        # what-if PM2.5
     assert not at.exception and len(at.dataframe) >= 1
+    for key, value in (("profile_by", "year"), ("skill_split", "test_lockdown"), ("base_split", "test")):
+        at.radio(key=key).set_value(value).run()               # analysis controls re-render cleanly
+        assert not at.exception, key
+    at.multiselect(key="eda_cities").set_value(["Delhi"]).run()
+    at.multiselect(key="cmp_models").set_value(["persistence", "lstm"]).run()
+    assert not at.exception
