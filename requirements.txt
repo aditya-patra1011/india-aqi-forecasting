@@ -9,5 +9,6 @@ xgboost
 torch
 shap
 streamlit
+plotly
 jupyter
 pytest

@@ -37,8 +37,22 @@ python -m src.run_classical   # SARIMAX and Prophet
 python -m src.run_ml          # Ridge, Random Forest, XGBoost
 python -m src.run_deep        # LSTM and GRU (PyTorch)
 python -m src.run_comparison  # all models on the same rows, significance, SHAP
+python -m src.export_models   # save the final LSTM and XGBoost to models/ for the app
 python -m pytest
 ```
+
+## App
+
+```bash
+streamlit run app/streamlit_app.py
+```
+
+- **Next-day forecast:** LSTM (final model), XGBoost and persistence for the day after the data ends, with the CPCB category, plus a what-if on the last day's PM2.5 and AQI.
+- **History:** actual vs forecasts over validation and test, with the lockdown marked and errors for the selected range.
+- **Leaderboard:** the phase 7 ranking, MAE by city before and during the lockdown, and Diebold-Mariano p-values.
+- **About:** the method and its caveats.
+
+The app needs the processed data and the exported models, which are not committed. If they are missing, it lists the commands to run.
 
 ## Status
 
@@ -50,5 +64,5 @@ python -m pytest
 - [x] Phase 5: ML models
 - [x] Phase 6: LSTM
 - [x] Phase 7: comparison
-- [ ] Phase 8: app
+- [x] Phase 8: app
 - [ ] Phase 9: docs

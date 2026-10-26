@@ -30,6 +30,7 @@ MAX_EPOCHS = 60
 PATIENCE = 8
 BATCH_SIZE = 128
 LEARNING_RATE = 1e-3
+TORCH_THREADS = 4      # fixed, because the thread count changes float rounding and so the trained weights
 
 
 def fit_scaler(df: pd.DataFrame, cols, fit_splits) -> tuple:
@@ -93,6 +94,7 @@ def train_model(seq, static, y, fit_idx, cfg: dict, epochs: int = MAX_EPOCHS,
     """Train on rows fit_idx (scaled target y, L1 loss). With monitor_idx, stop early on
     their loss and return the best weights; otherwise train exactly `epochs` epochs.
     Returns (model, number of epochs of the returned weights)."""
+    torch.set_num_threads(TORCH_THREADS)
     torch.manual_seed(config.RANDOM_STATE)
     model = RecurrentForecaster(seq.shape[2], static.shape[1], cfg["cell"], cfg["hidden"])
     opt = torch.optim.Adam(model.parameters(), lr=LEARNING_RATE)
@@ -121,11 +123,11 @@ def train_model(seq, static, y, fit_idx, cfg: dict, epochs: int = MAX_EPOCHS,
     return model, best_epoch
 
 
-def fit_predict_deep(df: pd.DataFrame, cols, cfg: dict, train_splits, pred_split: str,
-                     epochs: int = MAX_EPOCHS, early_stop: bool = False):
-    """Fit on rows of train_splits (target known, full window) and predict pred_split.
-    With early_stop, the loss on pred_split decides when to stop, so only use it when
-    pred_split is the validation split. Returns (predictions on the AQI scale, epochs)."""
+def fit_deep(df: pd.DataFrame, cols, cfg: dict, train_splits, epochs: int = MAX_EPOCHS,
+             monitor_split=None):
+    """Fit on rows of train_splits (target known, full window). With monitor_split, the
+    loss on that split decides when to stop, so only pass the validation split.
+    Returns (model, scaler, epochs)."""
     scaler = fit_scaler(df, [*cols, config.TARGET], train_splits)
     seq, static, valid = make_windows(df, [*cols, config.TARGET], scaler, cfg["window"])
     mu, sd = scaler[0][config.TARGET], scaler[1][config.TARGET]
@@ -133,13 +135,33 @@ def fit_predict_deep(df: pd.DataFrame, cols, cfg: dict, train_splits, pred_split
 
     has_y = df[config.TARGET].notna().to_numpy()
     fit_idx = np.flatnonzero(df["split"].isin(train_splits).to_numpy() & valid & has_y)
-    pred_mask = (df["split"] == pred_split).to_numpy() & valid
-    monitor_idx = np.flatnonzero(pred_mask & has_y) if early_stop else None
+    monitor_idx = None
+    if monitor_split is not None:
+        monitor_idx = np.flatnonzero((df["split"] == monitor_split).to_numpy() & valid & has_y)
     model, n_epochs = train_model(seq, static, y, fit_idx, cfg, epochs, monitor_idx)
+    return model, scaler, n_epochs
 
+
+def predict_deep(df: pd.DataFrame, cols, model, scaler: tuple, window: int, rows) -> pd.Series:
+    """Forecasts on the AQI scale for the boolean mask `rows` (rows without a full
+    window stay NaN). The scaler is the one fitted with the model."""
+    seq, static, valid = make_windows(df, [*cols, config.TARGET], scaler, window)
+    mask = np.asarray(rows, bool) & valid
+    mu, sd = scaler[0][config.TARGET], scaler[1][config.TARGET]
     pred = pd.Series(np.nan, index=df.index)
-    pred[pred_mask] = _predict_scaled(model, seq[pred_mask], static[pred_mask]) * sd + mu
-    return pred, n_epochs
+    pred[mask] = _predict_scaled(model, seq[mask], static[mask]) * sd + mu
+    return pred
+
+
+def fit_predict_deep(df: pd.DataFrame, cols, cfg: dict, train_splits, pred_split: str,
+                     epochs: int = MAX_EPOCHS, early_stop: bool = False):
+    """Fit on rows of train_splits and predict pred_split. With early_stop, the loss on
+    pred_split decides when to stop, so only use it when pred_split is the validation
+    split. Returns (predictions on the AQI scale, epochs)."""
+    model, scaler, n_epochs = fit_deep(df, cols, cfg, train_splits, epochs,
+                                       pred_split if early_stop else None)
+    rows = (df["split"] == pred_split).to_numpy()
+    return predict_deep(df, cols, model, scaler, cfg["window"], rows), n_epochs
 
 
 def run_deep_models(df: pd.DataFrame, core, grid=GRID, max_epochs: int = MAX_EPOCHS):
