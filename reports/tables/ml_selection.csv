@@ -11,7 +11,7 @@ xgboost,C_all,"{'max_depth': 3, 'n_estimators': 200}",18.234207368615554,0.85606
 xgboost,C_all,"{'max_depth': 3, 'n_estimators': 500}",17.996233307302816,0.8503241121563283,False
 xgboost,C_all,"{'max_depth': 5, 'n_estimators': 200}",17.79222813018381,0.8422306741443961,True
 xgboost,C_all,"{'max_depth': 5, 'n_estimators': 500}",17.739087975906997,0.8445153609290061,False
-random_forest,A_aqi_only,{'min_samples_leaf': 3},22.150417919174572,1.028911897342323,False
+random_forest,A_aqi_only,{'min_samples_leaf': 3},22.15041791917457,1.028911897342323,False
 random_forest,A_aqi_only,{'min_samples_leaf': 10},22.03622467096761,1.0176013768949368,False
 random_forest,B_core,{'min_samples_leaf': 3},17.83957306854588,0.842072969670404,False
 random_forest,B_core,{'min_samples_leaf': 10},17.915905276047212,0.8429001124482391,False
